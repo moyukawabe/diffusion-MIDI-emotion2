@@ -1,0 +1,11 @@
+{LARGE_FILE} filter=lfs diff=lfs merge=lfs -text
+make_data/Giantmidipiano/Giant-MidiPiano_VA/traindata/train_tokens_sort_CFG.npz filter=lfs diff=lfs merge=lfs -text
+make_data/Giantmidipiano/Giant-MidiPiano_VA/traindata/padded_tokens_list_train.npz filter=lfs diff=lfs merge=lfs -text
+make_data/Giantmidipiano/Giantmidipiano_token_data/train/train_attribute.npz filter=lfs diff=lfs merge=lfs -text
+make_data/Giantmidipiano/Giantmidipiano_token_data/train/train_attribute_100.npz filter=lfs diff=lfs merge=lfs -text
+make_data/Giantmidipiano/Giantmidipiano_token_data/valid/valid_attribute.npz filter=lfs diff=lfs merge=lfs -text
+. filter=lfs diff=lfs merge=lfs -text
+make_data/* filter=lfs diff=lfs merge=lfs -text
+コ filter=lfs diff=lfs merge=lfs -text
+make_data/Giantmidipiano/**/*.npz filter=lfs diff=lfs merge=lfs -text
+make_data/Giantmidipiano/***/**/*.npz filter=lfs diff=lfs merge=lfs -text

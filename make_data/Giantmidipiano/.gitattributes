@@ -1,0 +1,2 @@
+traindata/ filter=lfs diff=lfs merge=lfs -text
+traindata filter=lfs diff=lfs merge=lfs -text
