@@ -11,32 +11,41 @@ EmoGen
 
 EMOPIA_cls
 - Repository: https://github.com/SeungHeonDoh/EMOPIA_cls
+
+Essentia models
+- Page: https://essentia.upf.edu/models.html
   
 Guided Text Generation with Classifier-free Language Diffusion
 - Repository: https://github.com/vvhg1/guided-text-generation-with-classifier-free-language-diffusion
 
 ## Datasets
-1. Training diffusion models
+1. Training diffusion models\\
    GiantMIDI-Piano
   - Repository: https://github.com/bytedance/GiantMIDI-Piano?tab=readme-ov-file
   - Data: https://drive.google.com/file/d/1lmMu8lPo7rsgCIO0yjceap8TUfM72aFK/view?usp=sharing
 
-2. Training inpur regression models
-  EMOPIA:
-  - Repository:
+2. Training inpur regression models\\
+  EMOPIA
+  - MIDI data: https://zenodo.org/records/5090631#.YPPo-JMzZz8
+  - Audio data: obtaining audio data
+    -- Data: make_data/EMOPIA/songs_lists\\
+    Use YouTube links
+    -- System's Repository: https://github.com/ytdl-org/youtube-dl
+    -- Example code: make_data/EMOPIA/audio_DL.ipynb
 
-  DEAM:
+  DEAM
+  - Data: 
 
 ## Make data
 Extracting Music Attribute Values
 - jSymbolic
   -- Download the package: https://sourceforge.net/projects/jmir/files/jSymbolic/jSymbolic%202.2/
-Predicting emotion's inference values
+  -- Code: make_data/jSymbolic_use_file/jSymbolic_feature.py
+Predicting Emotion's inference values
 - EMOPIA_cls
-  -- Code: #:evaluate/EMOPIA_use_file/inference_many.py
-1.   
-   - 
-2. 
+  -- Code: evaluate/EMOPIA_use_file/inference_many.py
+Example of creating pair data of "Music Attribute Value" and "MIDI token"
+- Code: make_data/Giantmidipiano/midi_attribute.ipynb
 
 ## Training
 
