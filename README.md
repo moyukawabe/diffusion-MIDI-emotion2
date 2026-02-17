@@ -75,6 +75,8 @@ Guided Text Generation with Classifier-free Language Diffusion
   - Example code: ` make_data/EMOPIA/emotion_ar_va.ipynb` or `make_data/EMOPIA/emotion_ar_va2.ipynb`
 - Use DEAM data
   - Example code: `make_data/DEAM/DEAM_xy_attribute.ipynb `
+- Example
+  - (±0.4 , ±0.5): `input_example/input_emotion_18_2_DEAM.pt`
     
 ### Training
 `mkdir diffusion_models;` <br>
@@ -82,25 +84,25 @@ Guided Text Generation with Classifier-free Language Diffusion
 - CG (Classifier-Guidance) model
   - Pretraining:
     - Main code: `diffusion/diffusion/scripts/train_base.py` 
-    - Rename: diffusion_models → diffusion_model_CG_base <br>
+    - Rename later: diffusion_models → diffusion_model_CG_base <br>
       `CUDA_VISIBLE_DEVICES=7 nohup python scripts/run_train.py --diff_steps 2000 --model_arch transformer --lr 0.0001 --save_interval 2000  --lr_anneal_steps 200000 --seed 102 --noise_schedule sqrt --in_channel 32 --modality midi --submit no --padding_mode bar_block --app "--predict_xstart False --training_mode e2e --vocab_size 218 --e2
 e_train ../datasets/midi/giant_midi_piano " --notes previous_X_midi --dataset_par
 tition 1 --image_size 16 --midi_tokenizer='REMI' --data_path ../datasets/midi/giant_midi_piano > output_train_base_CG.txt &`
       
   - Training:
     - Main code: `diffusion/diffusion/scripts/train_finetune.py`
-    - Rename: diffusion_models → diffusion_model_CFG_base <br>
+    - Rename later: diffusion_models → diffusion_model_CFG_base <br>
       `CUDA_VISIBLE_DEVICES=0,1 nohup python -m torch.distributed.launch --nproc_per_node=2 --use_env scripts/run_train_finetune.py --model_path diffusion_model_CG_base/diff_midi_giant_midi_piano_REMI_bar_block_rand32_transformer_lr0.0001_0.0_4000_sqrt_Lsimple_h128_s2_d0.1_sd102_xstart_midi/model020000.pt --diff_steps 4000 --model_arch transformer --lr 0.0001 --save_interval 8000 —lr_anneal_steps 020000 --seed 102 --noise_schedule sqrt --in_channel 32 --modality midi --submit no --padding_mode bar_block --app "--predict_xstart True --training_mode e2e --vocab_size 218 --e2e_train ../datasets/midi/giant_midi_piano " --notes xstart_midi --dataset_partition 1 --image_size 16 --midi_tokenizer='REMI' --data_path ../datasets/midi/giant_midi_piano > output_train_CG.log 2>&1`
       
 - CFG (Classifier-Free Guidance) model
   - Pretraining
     - Main code: `diffusion/diffusion/scripts/train_base_CFG.py` 
-     - Rename: diffusion_models → diffusion_model_CG_re <br>
+     - Rename later: diffusion_models → diffusion_model_CG_re <br>
       `CUDA_VISIBLE_DEVICES=0,1 nohup python scripts/run_train_base_CFG.py --diff_steps 4000 --model_arch transformer --lr 0.0001 --save_interval 4000  --lr_anneal_steps 100000 --seed 102 --noise_schedule sqrt --in_channel 32 --modality midi --submit no --padding_mode bar_block --app "--predict_xstart True --training_mode e2e --vocab_size 218 --e2e_train ../datasets/midi/giant_midi_piano " --notes xstart_midi --dataset_partition 1 --bsz 64 --image_size 16 --midi_tokenizer='REMI' --data_path ../datasets/midi/giant_midi_piano > output_train_base_CFG.log 2>&1`
 
   - Training
     - Main code: `diffusion/diffusion/scripts/train_finetune_CFG.py`
-    - Rename: diffusion_models → diffusion_model_CFG_re <br>
+    - Rename later: diffusion_models → diffusion_model_CFG_re <br>
       `CUDA_VISIBLE_DEVICES=0,1 nohup python scripts/run_train_finetune_CFG.py --model_path diffusion_model_CFG_base/diff_midi_giant_midi_piano_REMI_bar_block_rand32_transformer_lr0.0001_0.0_4000_sqrt_Lsimple_h128_s2_d0.1_sd102_xstart_midi/model020000.pt --diff_steps 4000 --model_arch transformer --lr 0.0001 --save_interval 4000  --lr_anneal_steps 100000 --seed 102 --noise_schedule sqrt --in_channel 32 --modality midi --submit no --padding_mode bar_block --app "--predict_xstart True --training_mode e2e --vocab_size 218 --e2e_train ../datasets/midi/giant_midi_piano " --notes xstart_midi --dataset_partition 1 --bsz 64 --image_size 16 --midi_tokenizer='REMI' --data_path ../datasets/midi/giant_midi_piano > output_train_CFG.log 2>&1`
       
 ### Generation
