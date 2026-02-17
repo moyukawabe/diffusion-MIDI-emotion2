@@ -72,7 +72,7 @@ Guided Text Generation with Classifier-free Language Diffusion
 ### Input
  Make "input's regression models" and "Input data for the diffusion models"
 - Use EMOPIA data
- - Example code: ` make_data/EMOPIA/emotion_ar_va.ipynb` or `make_data/EMOPIA/emotion_ar_va2.ipynb`
+  - Example code: ` make_data/EMOPIA/emotion_ar_va.ipynb` or `make_data/EMOPIA/emotion_ar_va2.ipynb`
 - Use DEAM data
   - Example code: `make_data/DEAM/DEAM_xy_attribute.ipynb `
     
@@ -89,7 +89,7 @@ tition 1 --image_size 16 --midi_tokenizer='REMI' --data_path ../datasets/midi/gi
       
   - Training:
     - Main code: `diffusion/diffusion/scripts/train_finetune.py`
-    - Rename: diffusion_models → diffusion_model_CFG_base
+    - Rename: diffusion_models → diffusion_model_CFG_base <br>
       `CUDA_VISIBLE_DEVICES=0,1 nohup python -m torch.distributed.launch --nproc_per_node=2 --use_env scripts/run_train_finetune.py --model_path diffusion_model_CG_base/diff_midi_giant_midi_piano_REMI_bar_block_rand32_transformer_lr0.0001_0.0_4000_sqrt_Lsimple_h128_s2_d0.1_sd102_xstart_midi/model020000.pt --diff_steps 4000 --model_arch transformer --lr 0.0001 --save_interval 8000 —lr_anneal_steps 020000 --seed 102 --noise_schedule sqrt --in_channel 32 --modality midi --submit no --padding_mode bar_block --app "--predict_xstart True --training_mode e2e --vocab_size 218 --e2e_train ../datasets/midi/giant_midi_piano " --notes xstart_midi --dataset_partition 1 --image_size 16 --midi_tokenizer='REMI' --data_path ../datasets/midi/giant_midi_piano > output_train_CG.log 2>&1`
       
 - CFG (Classifier-Free Guidance) model
