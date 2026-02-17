@@ -19,16 +19,19 @@ Guided Text Generation with Classifier-free Language Diffusion
 - Repository: https://github.com/vvhg1/guided-text-generation-with-classifier-free-language-diffusion
 
 ## Datasets
-1. Training diffusion models\\
+1. Training diffusion models
+   
    GiantMIDI-Piano
   - Repository: https://github.com/bytedance/GiantMIDI-Piano?tab=readme-ov-file
   - Data: https://drive.google.com/file/d/1lmMu8lPo7rsgCIO0yjceap8TUfM72aFK/view?usp=sharing
 
-2. Training inpur regression models\\
+2. Training inpur regression models
+   
   EMOPIA
   - MIDI data: https://zenodo.org/records/5090631#.YPPo-JMzZz8
   - Audio data: obtaining audio data
-    -- Data: make_data/EMOPIA/songs_lists\\
+    -- Data: make_data/EMOPIA/songs_lists
+    
     Use YouTube links
     -- System's Repository: https://github.com/ytdl-org/youtube-dl
     -- Example code: make_data/EMOPIA/audio_DL.ipynb
