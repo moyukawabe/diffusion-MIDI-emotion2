@@ -21,41 +21,42 @@ Guided Text Generation with Classifier-free Language Diffusion
 ## Datasets
 1. Training diffusion models
   
-  - GiantMIDI-Piano
-  > Repository: https://github.com/bytedance/GiantMIDI-Piano?tab=readme-ov-file
-  > Data: https://drive.google.com/file/d/1lmMu8lPo7rsgCIO0yjceap8TUfM72aFK/view?usp=sharing
+  - GiantMIDI-Piano 
+    - Repository: https://github.com/bytedance/GiantMIDI-Piano?tab=readme-ov-file
+    - Data: https://drive.google.com/file/d/1lmMu8lPo7rsgCIO0yjceap8TUfM72aFK/view?usp=sharing
 
 2. Training inpur regression models
    
   - EMOPIA
-    > MIDI data: https://zenodo.org/records/5090631#.YPPo-JMzZz8
-    > Audio data: obtaining audio data
-      - Data: make_data/EMOPIA/songs_lists 
+    - MIDI data: https://zenodo.org/records/5090631#.YPPo-JMzZz8
+    - Audio data: obtaining audio data
+      - Data: [make_data/EMOPIA/songs_lists]
+      <br/>
       Use YouTube links
       - System's Repository: https://github.com/ytdl-org/youtube-dl
-      - Example code: make_data/EMOPIA/audio_DL.ipynb
+      - Example code: [make_data/EMOPIA/audio_DL.ipynb]
 
   - DEAM
-     > Data: https://cvml.unige.ch/databases/DEAM/
+     - Data: https://cvml.unige.ch/databases/DEAM/
 
 ## Make data
 - jSymbolic
   - Extracting Music Attribute Values
-  > Download the package: https://sourceforge.net/projects/jmir/files/jSymbolic/jSymbolic%202.2/
-  - Code: make_data/jSymbolic_use_file/jSymbolic_feature.py
+  - Download the package: https://sourceforge.net/projects/jmir/files/jSymbolic/jSymbolic%202.2/
+  - Code: [make_data/jSymbolic_use_file/jSymbolic_feature.py]
 
 - EMOPIA_cls
   - Predicting Emotion's inference values
-  - Code: evaluate/EMOPIA_use_file/inference_many.py
+  - Code: [evaluate/EMOPIA_use_file/inference_many.py]
 
 - Example of creating pair data of "Music Attribute Value" and "MIDI token"
-  - Code: make_data/Giantmidipiano/midi_attribute.ipynb
+  - Code: [make_data/Giantmidipiano/midi_attribute.ipynb]
 
 ## Training
 
 
 ## Evaluate
-Use the files under the evaluate/
-- Emotion # Emotion.ipynb
-- Music attribute similarity #:Similarity.ipynb
-- Music attribute analysis #:analysis.ipynb
+Use the files under the [evaluate/]
+- Emotion estimates: [Emotion.ipynb]
+- Music attribute similarity: [Similarity.ipynb]
+- Music attribute analysis: [analysis.ipynb]
