@@ -77,35 +77,42 @@ Guided Text Generation with Classifier-free Language Diffusion
   - Example code: `make_data/DEAM/DEAM_xy_attribute.ipynb `
     
 ### Training
+`mkdir diffusion_models;` <br>
+`cd diffusion/diffusion`
 - CG (Classifier-Guidance) model
   - Pretraining:
-    - Main code:
-      `mkdir diffusion_model_CG_base;`
-      ``
+    - Main code: `diffusion/diffusion/scripts/train_base.py` 
+    - Rename: diffusion_models → diffusion_model_CG_base <br>
+      `CUDA_VISIBLE_DEVICES=7 nohup python scripts/run_train.py --diff_steps 2000 --model_arch transformer --lr 0.0001 --save_interval 2000  --lr_anneal_steps 200000 --seed 102 --noise_schedule sqrt --in_channel 32 --modality midi --submit no --padding_mode bar_block --app "--predict_xstart False --training_mode e2e --vocab_size 218 --e2
+e_train ../datasets/midi/giant_midi_piano " --notes previous_X_midi --dataset_par
+tition 1 --image_size 16 --midi_tokenizer='REMI' --data_path ../datasets/midi/giant_midi_piano > output_train_base_CG.txt &`
+      
   - Training:
-    - Main code:
-      `mkdir diffusion_model_CFG_base;`
-      ``
+    - Main code: `diffusion/diffusion/scripts/train_finetune.py`
+    - Rename: diffusion_models → diffusion_model_CFG_base
+      `CUDA_VISIBLE_DEVICES=0,1 nohup python -m torch.distributed.launch --nproc_per_node=2 --use_env scripts/run_train_finetune.py --model_path diffusion_model_CG_base/diff_midi_giant_midi_piano_REMI_bar_block_rand32_transformer_lr0.0001_0.0_4000_sqrt_Lsimple_h128_s2_d0.1_sd102_xstart_midi/model020000.pt --diff_steps 4000 --model_arch transformer --lr 0.0001 --save_interval 8000 —lr_anneal_steps 020000 --seed 102 --noise_schedule sqrt --in_channel 32 --modality midi --submit no --padding_mode bar_block --app "--predict_xstart True --training_mode e2e --vocab_size 218 --e2e_train ../datasets/midi/giant_midi_piano " --notes xstart_midi --dataset_partition 1 --image_size 16 --midi_tokenizer='REMI' --data_path ../datasets/midi/giant_midi_piano > output_train_CG.log 2>&1`
+      
 - CFG (Classifier-Free Guidance) model
   - Pretraining
-    - Main code:
-      `mkdir diffusion_model_CG_re;`
-      ``
+    - Main code: `diffusion/diffusion/scripts/train_base_CFG.py` 
+     - Rename: diffusion_models → diffusion_model_CG_re <br>
+      `CUDA_VISIBLE_DEVICES=0,1 nohup python scripts/run_train_base_CFG.py --diff_steps 4000 --model_arch transformer --lr 0.0001 --save_interval 4000  --lr_anneal_steps 100000 --seed 102 --noise_schedule sqrt --in_channel 32 --modality midi --submit no --padding_mode bar_block --app "--predict_xstart True --training_mode e2e --vocab_size 218 --e2e_train ../datasets/midi/giant_midi_piano " --notes xstart_midi --dataset_partition 1 --bsz 64 --image_size 16 --midi_tokenizer='REMI' --data_path ../datasets/midi/giant_midi_piano > output_train_base_CFG.log 2>&1`
+
   - Training
-    - Main code:
-      `mkdir diffusion_model_CFG_re;`
-      ``
+    - Main code: `diffusion/diffusion/scripts/train_finetune_CFG.py`
+    - Rename: diffusion_models → diffusion_model_CFG_re <br>
+      `CUDA_VISIBLE_DEVICES=0,1 nohup python scripts/run_train_finetune_CFG.py --model_path diffusion_model_CFG_base/diff_midi_giant_midi_piano_REMI_bar_block_rand32_transformer_lr0.0001_0.0_4000_sqrt_Lsimple_h128_s2_d0.1_sd102_xstart_midi/model020000.pt --diff_steps 4000 --model_arch transformer --lr 0.0001 --save_interval 4000  --lr_anneal_steps 100000 --seed 102 --noise_schedule sqrt --in_channel 32 --modality midi --submit no --padding_mode bar_block --app "--predict_xstart True --training_mode e2e --vocab_size 218 --e2e_train ../datasets/midi/giant_midi_piano " --notes xstart_midi --dataset_partition 1 --bsz 64 --image_size 16 --midi_tokenizer='REMI' --data_path ../datasets/midi/giant_midi_piano > output_train_CFG.log 2>&1`
       
 ### Generation
 - CG (Classifier-Guidance) model
-  - Main code:
-    `mkdir generation_outputs_CG`
-     ``
+  - Main code: `diffusion/diffusion/symbolic_music/scripts/control_attribute_emogen_jsymbolic.py` <br>
+    `mkdir generation_outputs_CG;`
+     `CUDA_VISIBLE_DEVICES=0 nohup python symbolic_music/scripts/control_attribute_emogen_jsymbolic.py --model_path diffusion_model_CG_re/diff_midi_giant_midi_piano_REMI_bar_block_rand32_transformer_lr0.0001_0.0_4000_sqrt_Lsimple_h128_s2_d0.1_sd102_xstart_midi/model012000.pt --eval_task_ control_attribute --tgt_len 230 --use_ddim True --eta 1. --batch_size 16 --num_samples 16 --out_dir generation_outputs_CG > outgen_CG.txt &`
      
 - CFG (Classifier-Free Guidance) model
-  - Main code:
-    `mkdir generation_outputs_CG`
-    ``
+  - Main code: `diffusion/diffusion/symbolic_music/scripts/cfg_control_attribute_emogen_jsymbolic.py` <br>
+    `mkdir generation_outputs_CFG;`
+    `CUDA_VISIBLE_DEVICES=0,1 nohup python symbolic_music/scripts/cfg_control_attribute_emogen_jsymbolic.py --model_path diffusion_model__CFG_re/diff_midi_giant_midi_piano_REMI_bar_block_rand32_transformer_lr0.0001_0.0_4000_sqrt_Lsimple_h128_s2_d0.1_sd102_xstart_midi/model100000.pt --eval_task_ control_attribute --tgt_len 230 --use_ddim True --eta 1. --batch_size 16 --num_samples 16 --out_dir generation_outputs_CFG > outgen_CFG.txt &`
 
 
 ## Evaluate
