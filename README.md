@@ -21,16 +21,16 @@ Guided Text Generation with Classifier-free Language Diffusion
 ### Environment
 - Basic
   - Use Diffusion models and so on
-  - `python 3.8`
+  - `python 3.8.17`
   - `pip install -r requirements.txt`
 - Use EMOPIA_cls
-  - `python 3.8`
+  - `python 3.8.5`
   - `pip install -r requirements_evaluate.txt`
 - Use Essentia model
-  - `python 3.7` (Mac OS)
+  - `python 3.7.16` (Mac OS)
   - `pip install -r requirements_musicAV.txt`
 - Use jSymbolic system on a GPU:
-  - `python 3.7`
+  - `python 3.10.14`
   - `pip install -r make_data/jSymbolic_use_file/requirements_jSymbolic_gpu.txt`
 
 ## Data
@@ -106,12 +106,12 @@ tition 1 --image_size 16 --midi_tokenizer='REMI' --data_path ../datasets/midi/gi
 ### Generation
 - CG (Classifier-Guidance) model
   - Main code: `diffusion/diffusion/symbolic_music/scripts/control_attribute_emogen_jsymbolic.py` <br>
-    `mkdir generation_outputs_CG;`
+    `mkdir generation_outputs_CG;`<br>
      `CUDA_VISIBLE_DEVICES=0 nohup python symbolic_music/scripts/control_attribute_emogen_jsymbolic.py --model_path diffusion_model_CG_re/diff_midi_giant_midi_piano_REMI_bar_block_rand32_transformer_lr0.0001_0.0_4000_sqrt_Lsimple_h128_s2_d0.1_sd102_xstart_midi/model012000.pt --eval_task_ control_attribute --tgt_len 230 --use_ddim True --eta 1. --batch_size 16 --num_samples 16 --out_dir generation_outputs_CG > outgen_CG.txt &`
      
 - CFG (Classifier-Free Guidance) model
   - Main code: `diffusion/diffusion/symbolic_music/scripts/cfg_control_attribute_emogen_jsymbolic.py` <br>
-    `mkdir generation_outputs_CFG;`
+    `mkdir generation_outputs_CFG;`<br>
     `CUDA_VISIBLE_DEVICES=0,1 nohup python symbolic_music/scripts/cfg_control_attribute_emogen_jsymbolic.py --model_path diffusion_model__CFG_re/diff_midi_giant_midi_piano_REMI_bar_block_rand32_transformer_lr0.0001_0.0_4000_sqrt_Lsimple_h128_s2_d0.1_sd102_xstart_midi/model100000.pt --eval_task_ control_attribute --tgt_len 230 --use_ddim True --eta 1. --batch_size 16 --num_samples 16 --out_dir generation_outputs_CFG > outgen_CFG.txt &`
 
 
